@@ -1,5 +1,4 @@
-import {createGlobalStyle} from 'styled-components';
-
+import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 :root{
@@ -23,7 +22,6 @@ html{
     @media(max-with: 1080px){
         font-size: 93.75%; // 15px font global
     }
-
     @media(max-with: 720px){
         font-size: 87.5%; // 14px font global
     }
@@ -32,6 +30,15 @@ html{
 body{
     background: var(--background);
     -webkit-font-smoothing: antialiased;    
+}
+
+body, input, textarea, button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+h1,h2,h3,h4,h5,h6,strong{
+    font-weight:600;
 }
 //todos os botões da aplicação
 button{
@@ -43,6 +50,4 @@ button{
     opacity: 0.6;
     cursor: not-allowed;
 }
-
-`
-
+`;
