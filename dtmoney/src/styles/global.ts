@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components";
-export const GlobalStyle = createGlobalStyle`
+import { createGlobalStyle } from 'styled-components'
 
-:root{
+export const GlobalStyle = createGlobalStyle`
+  :root {
     --red: #e52e4d;
     --blue: #5429cc;
     --blue-light: #6933ff;
@@ -10,44 +10,67 @@ export const GlobalStyle = createGlobalStyle`
     --text-title: #363f5f;
     --text-body: #969cb3;
     --background: #f0f2f5;
-}
-
-*{
-    margin : 0;
+  }
+  * {
+    margin: 0;
     padding: 0;
-    box-sizing : border-box;
-}
-
-html{
-    @media(max-with: 1080px){
-        font-size: 93.75%; // 15px font global
+    box-sizing: border-box;
+  }
+  html {
+    @media(max-width: 1080px) {
+      font-size: 93.75%;
     }
-    @media(max-with: 720px){
-        font-size: 87.5%; // 14px font global
+    @media(max-width: 720px) {
+      font-size: 87.5%;
     }
-}
-
-body{
+  }
+  body {
     background: var(--background);
-    -webkit-font-smoothing: antialiased;    
-}
-
-body, input, textarea, button {
+    -webkit-font-smoothing: antialiased;
+  }
+  button {
+    cursor: pointer;
+  }
+  body, input, textarea, button {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
   }
-
-h1,h2,h3,h4,h5,h6,strong{
-    font-weight:600;
-}
-//todos os botões da aplicação
-button{
-    cursor: pointer;
-}
-//todos os itens que estão desabilitados por padrão
-//mostra uma flag de não permitido
-[disabled]{
+  h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+  }
+  [disabled] {
     opacity: 0.6;
     cursor: not-allowed;
-}
-`;
+  }
+  .react-modal-overlay{
+    background: rgba(0,0,0,0.5);
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .react-modal-content{
+    width:100%;
+    max-width: 576px;
+    background: var(--background);
+    padding: 3rem;
+    position: relative;
+    border-radius: 0.25rem;
+  }
+  .react-modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    border: 0;
+    background: transparent;
+    transition: filter 0.2s;
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+`

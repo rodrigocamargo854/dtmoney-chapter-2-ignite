@@ -10,7 +10,6 @@ export function Dashboard(){
         <Container>
             <Summary/>
             <TransationsTable/>
-
         </Container>
     )
 }
