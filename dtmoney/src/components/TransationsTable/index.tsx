@@ -1,7 +1,17 @@
+import { useEffect } from "react";
 import { Container } from "../TransationsTable/styles";
+import { api } from "../../services/api"
+//importanto o mirage js
 
+export function TransationsTable() {
+    //podemos modificar a rota em um futuro que
+    //neste momento o backend não está pronto
 
-export function TransationsTable(){
+    useEffect(() => {
+        api.get('transactions')//pegar esta resposta
+        .then(response => console.log(response.data))//mostrar no console
+    },[]);
+
    return (
         <Container>
             <table>
@@ -34,3 +44,5 @@ export function TransationsTable(){
         </Container>
     )
 }
+
+
