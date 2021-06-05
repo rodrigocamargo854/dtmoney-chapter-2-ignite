@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { darken } from "polished";
+import { darken, transparentize} from "polished";
 
 export const Container = styled.form`
   h2 {
@@ -61,6 +61,12 @@ export const TransactionTypeContainer = styled.div`
 //interface criada para que o botao tenha dois estados com styledcomponents
 interface RadioBoxProps{
   isActive : boolean;
+  activeColor : 'green' | 'red';
+}
+
+const colors = {
+  green:'#33CC95',
+  red: '#E53E40'
 }
 
 export const RadioBox = styled.button<RadioBoxProps>`
@@ -72,7 +78,11 @@ export const RadioBox = styled.button<RadioBoxProps>`
   // ternario passando uma função para o background do styledcomponents
   //por meio da props temos acesso a todos as propriedades do escopo
   //se a props.active == true , muda cor para green , senão fica tranparent
-  background: ${(props) => props.isActive ? '#ccc' : 'tranparent'};
+  background: ${(props) => 
+  props.isActive 
+  ? transparentize(0.9,colors[props.activeColor])
+  : 'tranparent'
+  };
 
   display: flex;
   align-items: center;

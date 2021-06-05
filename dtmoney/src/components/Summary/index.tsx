@@ -2,8 +2,16 @@ import { Container } from "../Summary/styles";
 import incomeIcon from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
 import totalImg from "../../assets/total.svg";
+import React, { useContext } from "react"
+import { TransactionsContext } from "../../TransactionsContext";
 
 export function Summary(){
+
+    //As trasactions não estão mais neste escopo e sim no escopo 
+    //do TrasactionsContext
+    const transactions = useContext(TransactionsContext);
+    console.log(transactions);
+
    return (
         <Container>
             <div>

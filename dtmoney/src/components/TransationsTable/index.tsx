@@ -1,48 +1,45 @@
-import { useEffect } from "react";
+import { useContext } from "react";
 import { Container } from "../TransationsTable/styles";
-import { api } from "../../services/api"
-//importanto o mirage js
+import { api } from "../../services/api";
+import { TransactionsContext } from "../../TransactionsContext";
+
+
 
 export function TransationsTable() {
-    //podemos modificar a rota em um futuro que
-    //neste momento o backend não está pronto
+  const transactions = useContext(TransactionsContext)
+  
 
-    useEffect(() => {
-        api.get('transactions')//pegar esta resposta
-        .then(response => console.log(response.data))//mostrar no console
-    },[]);
+  return (
+    <Container>
+      <table>
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          {transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
 
-   return (
-        <Container>
-            <table>
-                <thead>
-                    <tr>
-                    <th>Titulo</th>
-                    <th>Valor</th>
-                    <th>Categoria</th>
-                    <th>Data</th>               
-                    </tr>                    
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="deposit">R$12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
+              <td className={transaction.type}>
+                {new Intl.NumberFormat('pt-BR',{
+                    style: 'currency',
+                    currency: 'BRL'    
+                }).format(transaction.amount)}
+              </td>
+              <td>{transaction.category}</td>
+              <td>{new Intl.DateTimeFormat('pt-BR').format(
+                  new Date(transaction.createdAt)
+              )}</td>
+            </tr>
+          ))}
 
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="withdraw"> - R$10</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2021</td>
-                    </tr>
-                    
-                   
-                </tbody>
-            </table>
-        </Container>
-    )
+        </tbody>
+      </table>
+    </Container>
+  );
 }
-
-
