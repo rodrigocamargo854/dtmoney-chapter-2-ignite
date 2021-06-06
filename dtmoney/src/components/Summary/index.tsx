@@ -9,7 +9,7 @@ export function Summary(){
 
     //As trasactions não estão mais neste escopo e sim no escopo 
     //do TrasactionsContext
-    const transactions = useContext(TransactionsContext);
+    const { transactions } = useContext(TransactionsContext);
     console.log(transactions);
 
    return (
