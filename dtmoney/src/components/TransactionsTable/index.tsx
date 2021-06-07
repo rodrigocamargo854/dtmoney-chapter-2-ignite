@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import { Container } from "../TransationsTable/styles";
-import { api } from "../../services/api";
-import { TransactionsContext } from "../../TransactionsContext";
+import { Container } from "./styles";
+import { useTransactions } from "../../hooks/useTransactions";
 
 
 
-export function TransationsTable() {
-  const {transactions} = useContext(TransactionsContext)
+export function TransactionsTable() {
+  const { transactions } = useTransactions();
   
 
   return (
@@ -43,3 +41,5 @@ export function TransationsTable() {
     </Container>
   );
 }
+
+

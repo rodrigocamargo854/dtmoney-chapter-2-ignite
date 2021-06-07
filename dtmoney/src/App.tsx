@@ -2,10 +2,10 @@ import { GlobalStyle } from "./styles/global";
 import { Header } from "./components/Header";
 import Modal from 'react-modal';
 
-import {TransactionProvider, TransactionsContext} from './TransactionsContext'
+import {TransactionProvider} from './hooks/useTransactions'
 import React, { useState } from "react";
 import { Dashboard } from "./components/Dashboard";
-import {NewTransationModal} from "./components/NewTransationModal";
+import { NewTransactionModal } from "./components/NewTransationModal";
 
 
 //função para setar a div principal para q o modal 
@@ -32,7 +32,7 @@ export function App() {
 
         <Header onOpenNewTransactionModal= {handleOpenNewTransactionModal} />
         <Dashboard/>
-        <NewTransationModal
+        <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
         />

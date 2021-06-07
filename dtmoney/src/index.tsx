@@ -1,17 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from './App';
-import {createServer, Model} from 'miragejs'; // chamar esta função no index
-import schema from 'miragejs/orm/schema';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createServer, Model } from "miragejs";
+import { App } from "./App";
 
- //todas chamadas que a api que serao feitas
-  //estarao a partir do endereço api
 createServer({
-  models:{
-    transactions: Model,
+  models: {
+    transaction: Model,
   },
-  //função seeds  para pre-cadastrar dados para inicio
-  //semear servidor
+
   seeds(server) {
     server.db.loadData({
       transactions: [
@@ -35,31 +31,24 @@ createServer({
     });
   },
 
+  routes() {
+    this.namespace = "api";
 
- 
-  routes(){
-    this.namespace = 'api';
-    //valores simulados de um retorno da api
-    //para requisições get neste endpoint 
-    //retorne tudo
-    this.get('/transactions', () => {
-      
-      return this.schema.all('transactions')
+    this.get("/transactions", () => {
+      return this.schema.all("transaction");
+    });
 
-    })
+    this.post("transactions", (schema, request) => {
+      const data = JSON.parse(request.requestBody);
 
-    this.post('/transactions', (schema,request) => {
-      const data = JSON.parse(request.requestBody)
-
-      return schema.create('transactions',data);
-    })
-  }
-})
+      return schema.create("transaction", data);
+    });
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
-

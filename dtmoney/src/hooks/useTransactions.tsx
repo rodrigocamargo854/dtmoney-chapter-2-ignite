@@ -1,5 +1,6 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { api } from "./services/api";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { api } from "../services/api";
+
 //importamos a lib createConext do react.
 //Criamos uma constante para receber o valor default dos contextos
 
@@ -29,20 +30,20 @@ type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 //type TransactionInput = pick<Transaction, 'title' | 'amount' | 'type' | 'category'>([]);
 ////////////////////////////////////////////////////////////////////////////
 
-interface TrasactionsProviderProps {
+interface TransactionsProviderProps {
   children: ReactNode;
 }
 
-interface TrasactionContexData{
+interface TransactionContexData{
     transactions: Transaction[];
-    createTransaction: ( transaction: TransactionInput) => void;
+    createTransaction: ( transaction: TransactionInput) => Promise<void>;
 }
 
-export const TransactionsContext = createContext<TrasactionContexData>({} as TrasactionContexData);
+ const TransactionsContext = createContext<TransactionContexData>({} as TransactionContexData);
 
 //Colocamos o TransactionsContext.Provider por volta de todo App
 
-export function TransactionProvider({ children }: TrasactionsProviderProps) {
+export function TransactionProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   //podemos modificar a rota em um futuro que
   //neste momento o backend não está pronto
@@ -52,9 +53,15 @@ export function TransactionProvider({ children }: TrasactionsProviderProps) {
       .then((response) => setTransactions(response.data.transactions)); //mostrar no console
   }, []);
 
-  function createTransaction(transaction : TransactionInput) {
-    //chamada da api para reuisição post no escopo index
-    api.post("/transactions", transaction);
+  async function createTransaction(transactionInput: TransactionInput) {
+    const response = await api.post("transactions", {
+      ...transactionInput,
+      createdAt: new Date(),
+    });
+
+    const { transaction } = response.data;
+
+    setTransactions([...transactions, transaction]);
   }
 
   return (
@@ -62,4 +69,10 @@ export function TransactionProvider({ children }: TrasactionsProviderProps) {
       {children}
     </TransactionsContext.Provider>
   );
+}
+
+export function useTransactions(){
+  const context = useContext(TransactionsContext);
+
+  return context;
 }
